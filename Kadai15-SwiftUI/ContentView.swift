@@ -29,18 +29,15 @@ struct ContentView: View {
                     let fruit = fruits[index]
                     ZStack {
                         HStack{
-                            Image(systemName: fruit.isChecked ? "checkmark" : "square")
+                            Image(systemName: "checkmark")
                                 .foregroundColor(fruit.isChecked ? Color.orange : Color.white)
+                            Spacer().frame(width: 15)
+                            Text(fruit.name)
                             Spacer()
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
                             fruits[index].isChecked.toggle()
-                        }
-                        HStack {
-                            Spacer().frame(width: 30)
-                            Text(fruit.name)
-                            Spacer()
                         }
                     }
                 }
