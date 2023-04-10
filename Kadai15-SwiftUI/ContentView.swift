@@ -21,23 +21,22 @@ struct ContentView: View {
         Fruit(name: "バナナ", isChecked: false),
         Fruit(name: "パイナップル", isChecked: true)
     ]
-
+    
     var body: some View {
-        NavigationStack{
+        NavigationView {
             List {
-                ForEach(fruits) { fruit in
+                ForEach(fruits.indices, id: \.self) { index in
+                    let fruit = fruits[index]
                     ZStack {
                         HStack{
-                            Image(systemName: fruit.isChecked ? "checkmark" : "")
-                                .foregroundColor(Color.orange)
+                            Image(systemName: fruit.isChecked ? "checkmark" : "square")
+                                .foregroundColor(fruit.isChecked ? Color.orange : Color.white)
                             Spacer()
                         }
                         .contentShape(Rectangle())
-//                        .onTapGesture {
-//                            if let check = self.fruits[fruit].isChecked as? Bool {
-//                                            fruit.isChecked = !check
-//                                        }
-//                                    }
+                        .onTapGesture {
+                            fruits[index].isChecked.toggle()
+                        }
                         HStack {
                             Spacer().frame(width: 30)
                             Text(fruit.name)
@@ -46,7 +45,6 @@ struct ContentView: View {
                     }
                 }
             }
-            .toolbar { EditButton() }
             .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -70,10 +68,8 @@ struct ContentView: View {
                 }
             }
         }
-
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
